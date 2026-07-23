@@ -1,0 +1,2761 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>UNIOM 3D Gallery</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+--maroon:#7A0018;
+--cream:#F8F5F1;
+--gold:#C9A14A;
+--dark:#1C1C1C;
+--white:#ffffff;
+
+}
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+
+}
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+body{
+
+font-family:Poppins,sans-serif;
+background:var(--cream);
+color:var(--dark);
+overflow-x:hidden;
+
+}
+
+/* Background */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+width:700px;
+height:700px;
+
+left:-220px;
+top:-220px;
+
+background:
+radial-gradient(circle,var(--maroon) 2px,transparent 2px);
+
+background-size:25px 25px;
+
+opacity:.05;
+
+z-index:-1;
+
+}
+
+body::after{
+
+content:"";
+
+position:fixed;
+
+right:-180px;
+bottom:-180px;
+
+width:650px;
+height:650px;
+
+background:
+repeating-radial-gradient(
+
+circle,
+
+rgba(122,0,24,.08),
+
+rgba(122,0,24,.08) 4px,
+
+transparent 5px,
+
+transparent 24px
+
+);
+
+border-radius:50%;
+
+z-index:-1;
+
+}
+
+/* Navbar */
+
+header{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+background:rgba(255,255,255,.82);
+
+backdrop-filter:blur(15px);
+
+z-index:999;
+
+transition:.4s;
+
+}
+
+nav{
+
+max-width:1400px;
+
+margin:auto;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:22px 40px;
+
+}
+
+.logo{
+
+font-size:34px;
+
+font-weight:800;
+
+letter-spacing:2px;
+
+color:var(--maroon);
+
+}
+
+nav ul{
+
+display:flex;
+
+gap:35px;
+
+list-style:none;
+
+}
+
+nav a{
+
+text-decoration:none;
+
+color:#444;
+
+font-weight:500;
+
+transition:.3s;
+
+}
+
+nav a:hover{
+
+color:var(--maroon);
+
+}
+
+.github{
+
+padding:13px 28px;
+
+border:none;
+
+border-radius:50px;
+
+background:var(--maroon);
+
+color:white;
+
+cursor:pointer;
+
+font-weight:600;
+
+}
+
+/* Hero */
+
+.hero{
+
+max-width:1400px;
+
+margin:auto;
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+align-items:center;
+
+padding:150px 40px 90px;
+
+gap:60px;
+
+}
+
+.hero h1{
+
+font-size:74px;
+
+line-height:1.05;
+
+margin-bottom:30px;
+
+}
+
+.hero p{
+
+font-size:18px;
+
+line-height:1.8;
+
+color:#666;
+
+margin-bottom:35px;
+
+max-width:550px;
+
+}
+
+.hero button{
+
+padding:18px 38px;
+
+background:var(--maroon);
+
+color:white;
+
+border:none;
+
+border-radius:50px;
+
+font-size:16px;
+
+cursor:pointer;
+
+transition:.35s;
+
+}
+
+.hero button:hover{
+
+transform:translateY(-4px);
+
+}
+
+.viewer-box{
+
+background:white;
+
+border-radius:30px;
+
+height:650px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+box-shadow:
+
+0 30px 60px rgba(0,0,0,.08);
+
+}
+
+.viewer-box h2{
+
+font-size:34px;
+
+color:var(--maroon);
+
+margin-bottom:10px;
+
+}
+
+.viewer-box p{
+
+color:#777;
+
+}
+
+/* Gallery */
+
+.gallery{
+
+max-width:1400px;
+
+margin:auto;
+
+padding:100px 40px;
+
+}
+
+.gallery h2{
+
+font-size:48px;
+
+margin-bottom:20px;
+
+}
+
+.gallery-sub{
+
+color:#777;
+
+margin-bottom:45px;
+
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(auto-fit,minmax(280px,1fr));
+
+gap:28px;
+
+}
+
+.card{
+
+background:white;
+
+border-radius:25px;
+
+overflow:hidden;
+
+transition:.35s;
+
+cursor:pointer;
+
+box-shadow:
+
+0 12px 40px rgba(0,0,0,.08);
+
+}
+
+.card:hover{
+
+transform:translateY(-10px);
+
+}
+
+.thumb{
+
+height:250px;
+
+background:
+
+linear-gradient(135deg,#fff,#ececec);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:28px;
+
+font-weight:700;
+
+color:#aaa;
+
+}
+
+.info{
+
+padding:22px;
+
+}
+
+.info h3{
+
+margin-bottom:8px;
+
+font-size:22px;
+
+}
+
+.info p{
+
+color:#777;
+
+font-size:15px;
+
+line-height:1.7;
+
+}
+
+.tag{
+
+display:inline-block;
+
+margin-top:18px;
+
+padding:8px 15px;
+
+background:#f2f2f2;
+
+border-radius:50px;
+
+font-size:13px;
+
+}
+
+/* Section */
+
+.section{
+
+max-width:1400px;
+
+margin:auto;
+
+padding:80px 40px;
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:30px;
+
+}
+
+.box{
+
+background:white;
+
+padding:40px;
+
+border-radius:25px;
+
+box-shadow:
+
+0 10px 35px rgba(0,0,0,.07);
+
+}
+
+.box h3{
+
+margin-bottom:18px;
+
+font-size:24px;
+
+color:var(--maroon);
+
+}
+
+.box p{
+
+color:#666;
+
+line-height:1.8;
+
+}
+
+footer{
+
+margin-top:100px;
+
+background:var(--maroon);
+
+padding:60px;
+
+color:white;
+
+text-align:center;
+
+}
+
+footer h2{
+
+margin-bottom:15px;
+
+font-size:34px;
+
+}
+
+footer p{
+
+opacity:.8;
+
+}
+
+@media(max-width:1000px){
+
+.hero{
+
+grid-template-columns:1fr;
+
+}
+
+.section{
+
+grid-template-columns:1fr;
+
+}
+
+nav ul{
+
+display:none;
+
+}
+
+.hero h1{
+
+font-size:48px;
+
+}
+
+.viewer-box{
+
+height:420px;
+
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<div class="logo">
+
+UNIOM
+
+</div>
+
+<ul>
+
+<li><a href="#">Home</a></li>
+
+<li><a href="#gallery">Gallery</a></li>
+
+<li><a href="#about">About</a></li>
+
+<li><a href="#contact">Contact</a></li>
+
+</ul>
+
+<button class="github">
+
+Explore
+
+</button>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<div>
+
+<h1>
+
+3D PRODUCT<br>
+
+SHOWCASE
+
+</h1>
+
+<p>
+
+Website ini dibuat untuk menampilkan koleksi desain 3D secara interaktif.
+Pengunjung dapat memutar, memperbesar, dan melihat detail model secara langsung.
+
+</p>
+
+<button>
+
+Lihat Galeri
+
+</button>
+
+</div>
+
+<div class="viewer-box" id="viewer">
+
+<h2>
+
+3D Viewer
+
+</h2>
+
+<p>
+
+Model akan muncul di sini
+
+</p>
+
+</div>
+
+</section>
+<!-- ===========================
+     GALLERY
+=========================== -->
+
+<section class="gallery" id="gallery">
+
+<h2>Featured Works</h2>
+
+<p class="gallery-sub">
+Pilih salah satu karya untuk melihat model 3D secara interaktif.
+</p>
+
+<div class="grid" id="galleryGrid">
+
+<div class="card" data-model="models/topi1.glb">
+
+<div class="thumb">
+TOPI 01
+</div>
+
+<div class="info">
+
+<h3>UNIOM White</h3>
+
+<p>
+Topi bordir premium dengan desain minimalis.
+</p>
+
+<span class="tag">
+GLB MODEL
+</span>
+
+</div>
+
+</div>
+
+
+<div class="card" data-model="models/topi2.glb">
+
+<div class="thumb">
+TOPI 02
+</div>
+
+<div class="info">
+
+<h3>UNIOM Black</h3>
+
+<p>
+Konsep hitam elegan dengan detail bordir.
+</p>
+
+<span class="tag">
+GLB MODEL
+</span>
+
+</div>
+
+</div>
+
+
+
+<div class="card" data-model="models/topi3.glb">
+
+<div class="thumb">
+TOPI 03
+</div>
+
+<div class="info">
+
+<h3>UNIOM Maroon</h3>
+
+<p>
+Versi maroon dengan nuansa premium.
+</p>
+
+<span class="tag">
+GLB MODEL
+</span>
+
+</div>
+
+</div>
+
+
+
+<div class="card" data-model="models/topi4.glb">
+
+<div class="thumb">
+TOPI 04
+</div>
+
+<div class="info">
+
+<h3>Prototype</h3>
+
+<p>
+
+Desain eksperimental.
+
+</p>
+
+<span class="tag">
+
+GLB MODEL
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ===========================
+ABOUT
+=========================== -->
+
+<section class="section" id="about">
+
+<div class="box">
+
+<h3>
+Interactive
+</h3>
+
+<p>
+
+Semua model dapat diputar 360°, di-zoom,
+dan dilihat dari berbagai sudut.
+
+</p>
+
+</div>
+
+
+<div class="box">
+
+<h3>
+
+High Quality
+
+</h3>
+
+<p>
+
+Model menggunakan format GLB sehingga
+detail material tetap terjaga.
+
+</p>
+
+</div>
+
+
+
+<div class="box">
+
+<h3>
+
+Personal Gallery
+
+</h3>
+
+<p>
+
+Website ini hanya sebagai galeri hasil karya,
+bukan marketplace.
+
+</p>
+
+</div>
+
+</section>
+
+
+
+<!-- ===========================
+FULLSCREEN VIEWER
+=========================== -->
+
+<div id="popup"
+
+style="
+
+position:fixed;
+
+left:0;
+
+top:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(15,15,15,.95);
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+z-index:99999;
+
+">
+
+<button
+
+id="closeViewer"
+
+style="
+
+position:absolute;
+
+right:30px;
+
+top:30px;
+
+padding:15px 18px;
+
+border:none;
+
+border-radius:50%;
+
+cursor:pointer;
+
+font-size:18px;
+
+">
+
+✕
+
+</button>
+
+<div
+
+id="viewer3d"
+
+style="
+
+width:90%;
+
+height:80%;
+
+border-radius:20px;
+
+overflow:hidden;
+
+">
+
+</div>
+
+<div
+
+style="
+
+margin-top:20px;
+
+display:flex;
+
+gap:20px;
+
+">
+
+<button id="rotateBtn">
+
+Auto Rotate
+
+</button>
+
+<button id="resetBtn">
+
+Reset Camera
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<footer id="contact">
+
+<h2>
+
+UNIOM Gallery
+
+</h2>
+
+<p>
+
+Designed & Developed by Jonatan
+
+</p>
+
+</footer>
+
+
+
+<!-- ===========================
+THREE JS
+=========================== -->
+
+<script type="importmap">
+
+{
+
+"imports":{
+
+"three":"https://unpkg.com/three@0.167/build/three.module.js",
+
+"three/addons/":"https://unpkg.com/three@0.167/examples/jsm/"
+
+}
+
+}
+
+</script>
+
+<script type="module">
+
+import * as THREE from "three";
+
+import {OrbitControls}
+
+from "three/addons/controls/OrbitControls.js";
+
+import {GLTFLoader}
+
+from "three/addons/loaders/GLTFLoader.js";
+
+const popup=document.getElementById("popup");
+
+const viewer=document.getElementById("viewer3d");
+
+let scene;
+
+let camera;
+
+let renderer;
+
+let controls;
+
+let loader;
+
+let currentModel;
+
+
+
+function initViewer(){
+
+scene=new THREE.Scene();
+
+scene.background=new THREE.Color("#f7f5f3");
+
+camera=new THREE.PerspectiveCamera(
+
+45,
+
+viewer.clientWidth/viewer.clientHeight,
+
+0.1,
+
+1000
+
+);
+
+camera.position.set(0,1.2,3);
+
+renderer=new THREE.WebGLRenderer({
+
+antialias:true
+
+});
+
+renderer.setSize(
+
+viewer.clientWidth,
+
+viewer.clientHeight
+
+);
+
+viewer.innerHTML="";
+
+viewer.appendChild(renderer.domElement);
+
+controls=new OrbitControls(
+
+camera,
+
+renderer.domElement
+
+);
+
+controls.enableDamping=true;
+
+controls.autoRotate=true;
+
+loader=new GLTFLoader();
+
+const ambient=new THREE.AmbientLight(
+
+0xffffff,
+
+2
+
+);
+
+scene.add(ambient);
+
+const light=new THREE.DirectionalLight(
+
+0xffffff,
+
+4
+
+);
+
+light.position.set(5,5,5);
+
+scene.add(light);
+
+animate();
+
+}
+
+function animate(){
+
+requestAnimationFrame(animate);
+
+controls.update();
+
+renderer.render(scene,camera);
+
+}
+
+function loadModel(path){
+
+loader.load(path,(gltf)=>{
+
+if(currentModel){
+
+scene.remove(currentModel);
+
+}
+
+currentModel=gltf.scene;
+
+scene.add(currentModel);
+
+});
+
+}
+
+document.querySelectorAll(".card").forEach(card=>{
+
+card.onclick=()=>{
+
+popup.style.display="flex";
+
+initViewer();
+
+loadModel(card.dataset.model);
+
+};
+
+});
+
+document.getElementById("closeViewer").onclick=()=>{
+
+popup.style.display="none";
+
+};
+// =============================
+// AUTO FIT CAMERA
+// =============================
+
+function fitCameraToObject(object){
+
+    const box = new THREE.Box3().setFromObject(object);
+
+    const size = box.getSize(new THREE.Vector3());
+
+    const center = box.getCenter(new THREE.Vector3());
+
+    const maxSize = Math.max(size.x,size.y,size.z);
+
+    const distance = maxSize * 2.2;
+
+    camera.position.set(
+        center.x,
+        center.y + maxSize * 0.4,
+        center.z + distance
+    );
+
+    controls.target.copy(center);
+
+    camera.near = 0.01;
+    camera.far = distance * 10;
+    camera.updateProjectionMatrix();
+
+}
+
+
+// =============================
+// UPDATE LOAD MODEL
+// =============================
+
+function loadModel(path){
+
+    loader.load(path,(gltf)=>{
+
+        if(currentModel){
+
+            scene.remove(currentModel);
+
+        }
+
+        currentModel = gltf.scene;
+
+        currentModel.traverse((obj)=>{
+
+            if(obj.isMesh){
+
+                obj.castShadow = true;
+                obj.receiveShadow = true;
+
+            }
+
+        });
+
+        scene.add(currentModel);
+
+        fitCameraToObject(currentModel);
+
+    });
+
+}
+
+
+
+// =============================
+// AUTO ROTATE
+// =============================
+
+let rotate = true;
+
+document.getElementById("rotateBtn").onclick = ()=>{
+
+    rotate = !rotate;
+
+    controls.autoRotate = rotate;
+
+}
+
+
+
+// =============================
+// RESET CAMERA
+// =============================
+
+document.getElementById("resetBtn").onclick = ()=>{
+
+    if(currentModel){
+
+        fitCameraToObject(currentModel);
+
+    }
+
+}
+
+
+
+// =============================
+// RESPONSIVE
+// =============================
+
+window.addEventListener("resize",()=>{
+
+    if(!renderer) return;
+
+    camera.aspect =
+    viewer.clientWidth /
+    viewer.clientHeight;
+
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(
+
+        viewer.clientWidth,
+
+        viewer.clientHeight
+
+    );
+
+});
+
+
+
+// =============================
+// KEYBOARD SHORTCUT
+// =============================
+
+window.addEventListener("keydown",(e)=>{
+
+    if(e.key==="Escape"){
+
+        popup.style.display="none";
+
+    }
+
+});
+
+
+
+// =============================
+// DRAG DROP GLB
+// =============================
+
+window.addEventListener("dragover",(e)=>{
+
+    e.preventDefault();
+
+});
+
+window.addEventListener("drop",(e)=>{
+
+    e.preventDefault();
+
+    const file = e.dataTransfer.files[0];
+
+    if(!file) return;
+
+    if(!file.name.endsWith(".glb")){
+
+        alert("Gunakan file GLB");
+
+        return;
+
+    }
+
+    const url = URL.createObjectURL(file);
+
+    popup.style.display="flex";
+
+    initViewer();
+
+    loadModel(url);
+
+});
+
+
+
+// =============================
+// FADE CARD
+// =============================
+
+const observer = new IntersectionObserver((entries)=>{
+
+entries.forEach((entry)=>{
+
+if(entry.isIntersecting){
+
+entry.target.animate([
+
+{
+
+opacity:0,
+
+transform:"translateY(40px)"
+
+},
+
+{
+
+opacity:1,
+
+transform:"translateY(0)"
+
+}
+
+],{
+
+duration:800,
+
+fill:"forwards"
+
+});
+
+}
+
+});
+
+});
+
+document.querySelectorAll(".card").forEach(card=>{
+
+observer.observe(card);
+
+});
+
+
+
+// =============================
+// HEADER SHADOW
+// =============================
+
+window.addEventListener("scroll",()=>{
+
+const header=document.querySelector("header");
+
+if(window.scrollY>40){
+
+header.style.boxShadow="0 15px 35px rgba(0,0,0,.08)";
+
+}else{
+
+header.style.boxShadow="none";
+
+}
+
+});
+
+
+
+// =============================
+// SMOOTH SCROLL
+// =============================
+
+document.querySelectorAll("a").forEach(link=>{
+
+link.onclick=(e)=>{
+
+const href=link.getAttribute("href");
+
+if(href.startsWith("#")){
+
+e.preventDefault();
+
+document.querySelector(href)
+
+.scrollIntoView({
+
+behavior:"smooth"
+
+});
+
+}
+
+};
+
+});
+
+
+
+// =============================
+// PRELOADER
+// =============================
+
+const loading=document.createElement("div");
+
+loading.style.position="fixed";
+
+loading.style.left="0";
+
+loading.style.top="0";
+
+loading.style.width="100%";
+
+loading.style.height="100%";
+
+loading.style.background="#F7F5F3";
+
+loading.style.display="flex";
+
+loading.style.justifyContent="center";
+
+loading.style.alignItems="center";
+
+loading.style.fontSize="22px";
+
+loading.style.fontWeight="700";
+
+loading.innerHTML="Loading 3D Gallery...";
+
+document.body.appendChild(loading);
+
+window.onload=()=>{
+
+loading.animate([
+
+{opacity:1},
+
+{opacity:0}
+
+],{
+
+duration:700,
+
+fill:"forwards"
+
+});
+
+setTimeout(()=>{
+
+loading.remove();
+
+},700);
+
+};
+
+
+
+// =============================
+// END
+// =============================
+
+console.log("UNIOM 3D Gallery Ready");
+// ==============================
+// GALLERY DATA
+// ==============================
+
+const projects = [
+
+{
+
+title:"UNIOM White",
+
+model:"models/topi1.glb",
+
+thumbnail:"images/topi1.jpg",
+
+year:"2026",
+
+software:"Blender",
+
+description:"Premium embroidery cap."
+
+},
+
+{
+
+title:"UNIOM Black",
+
+model:"models/topi2.glb",
+
+thumbnail:"images/topi2.jpg",
+
+year:"2026",
+
+software:"Blender",
+
+description:"Black Edition."
+
+},
+
+{
+
+title:"UNIOM Maroon",
+
+model:"models/topi3.glb",
+
+thumbnail:"images/topi3.jpg",
+
+year:"2026",
+
+software:"Blender",
+
+description:"Classic Maroon."
+
+}
+
+];
+
+
+
+// ==============================
+// LOADING BAR
+// ==============================
+
+const progress=document.createElement("div");
+
+progress.style.position="fixed";
+
+progress.style.top="0";
+
+progress.style.left="0";
+
+progress.style.height="4px";
+
+progress.style.width="0%";
+
+progress.style.background="#7A0018";
+
+progress.style.zIndex="999999";
+
+document.body.appendChild(progress);
+
+function animateProgress(){
+
+let width=0;
+
+const timer=setInterval(()=>{
+
+width++;
+
+progress.style.width=width+"%";
+
+if(width>=100){
+
+clearInterval(timer);
+
+setTimeout(()=>{
+
+progress.remove();
+
+},300);
+
+}
+
+},15);
+
+}
+
+animateProgress();
+
+
+
+// ==============================
+// LIGHTING
+// ==============================
+
+const rimLight=new THREE.DirectionalLight(
+
+0xffffff,
+
+2
+
+);
+
+rimLight.position.set(-5,6,-5);
+
+scene.add(rimLight);
+
+
+
+const fillLight=new THREE.HemisphereLight(
+
+0xffffff,
+
+0x999999,
+
+1.5
+
+);
+
+scene.add(fillLight);
+
+
+
+// ==============================
+// FLOOR
+// ==============================
+
+const floor=new THREE.Mesh(
+
+new THREE.CircleGeometry(20,64),
+
+new THREE.ShadowMaterial({
+
+opacity:.18
+
+})
+
+);
+
+floor.rotation.x=-Math.PI/2;
+
+floor.position.y=-1.2;
+
+scene.add(floor);
+
+
+
+// ==============================
+// AUTO SPIN
+// ==============================
+
+let spinSpeed=.4;
+
+controls.autoRotateSpeed=spinSpeed;
+
+
+
+// ==============================
+// DOUBLE CLICK FULLSCREEN
+// ==============================
+
+viewer.addEventListener("dblclick",()=>{
+
+if(document.fullscreenElement){
+
+document.exitFullscreen();
+
+}else{
+
+viewer.requestFullscreen();
+
+}
+
+});
+
+
+
+// ==============================
+// SCREENSHOT
+// ==============================
+
+function screenshot(){
+
+const link=document.createElement("a");
+
+link.download="render.png";
+
+link.href=renderer.domElement.toDataURL("image/png");
+
+link.click();
+
+}
+
+
+
+// Tombol Screenshot
+
+const shot=document.createElement("button");
+
+shot.innerHTML="Screenshot";
+
+shot.style.position="absolute";
+
+shot.style.left="30px";
+
+shot.style.top="30px";
+
+shot.style.padding="12px 18px";
+
+shot.style.border="none";
+
+shot.style.borderRadius="12px";
+
+shot.style.cursor="pointer";
+
+popup.appendChild(shot);
+
+shot.onclick=screenshot;
+
+
+
+// ==============================
+// INFO PANEL
+// ==============================
+
+const info=document.createElement("div");
+
+info.style.position="absolute";
+
+info.style.left="30px";
+
+info.style.bottom="30px";
+
+info.style.width="320px";
+
+info.style.background="rgba(255,255,255,.94)";
+
+info.style.padding="20px";
+
+info.style.borderRadius="20px";
+
+info.style.backdropFilter="blur(15px)";
+
+popup.appendChild(info);
+
+function updateInfo(data){
+
+info.innerHTML=`
+
+<h2 style="margin-bottom:10px;color:#7A0018;">
+
+${data.title}
+
+</h2>
+
+<p><b>Tahun :</b> ${data.year}</p>
+
+<p><b>Software :</b> ${data.software}</p>
+
+<p style="margin-top:12px;line-height:1.7">
+
+${data.description}
+
+</p>
+
+`;
+
+}
+
+
+
+// ==============================
+// UPDATE CARD
+// ==============================
+
+document.querySelectorAll(".card")
+
+.forEach((card,index)=>{
+
+card.onclick=()=>{
+
+popup.style.display="flex";
+
+initViewer();
+
+loadModel(projects[index].model);
+
+updateInfo(projects[index]);
+
+};
+
+});
+
+
+
+// ==============================
+// CLOSE POPUP
+// ==============================
+
+popup.addEventListener("click",(e)=>{
+
+if(e.target===popup){
+
+popup.style.display="none";
+
+}
+
+});
+
+
+
+// ==============================
+// VIEWER TITLE
+// ==============================
+
+const viewerTitle=document.createElement("h1");
+
+viewerTitle.innerHTML="3D Preview";
+
+viewerTitle.style.position="absolute";
+
+viewerTitle.style.top="30px";
+
+viewerTitle.style.left="50%";
+
+viewerTitle.style.transform="translateX(-50%)";
+
+viewerTitle.style.color="white";
+
+viewerTitle.style.fontSize="28px";
+
+popup.appendChild(viewerTitle);
+
+
+
+// ==============================
+// SIMPLE FPS COUNTER
+// ==============================
+
+let frames=0;
+
+let lastTime=performance.now();
+
+const fps=document.createElement("div");
+
+fps.style.position="absolute";
+
+fps.style.right="30px";
+
+fps.style.bottom="30px";
+
+fps.style.background="rgba(0,0,0,.6)";
+
+fps.style.color="white";
+
+fps.style.padding="8px 12px";
+
+fps.style.borderRadius="10px";
+
+popup.appendChild(fps);
+
+function updateFPS(){
+
+frames++;
+
+const now=performance.now();
+
+if(now-lastTime>=1000){
+
+fps.innerHTML=frames+" FPS";
+
+frames=0;
+
+lastTime=now;
+
+}
+
+requestAnimationFrame(updateFPS);
+
+}
+
+updateFPS();
+// =====================================
+// DRAG & DROP MODEL
+// =====================================
+
+const dropZone = document.createElement("div");
+
+dropZone.innerHTML = "Drop GLB Here";
+
+dropZone.style.position = "fixed";
+dropZone.style.left = "50%";
+dropZone.style.top = "50%";
+dropZone.style.transform = "translate(-50%,-50%)";
+dropZone.style.padding = "30px 50px";
+dropZone.style.border = "3px dashed #7A0018";
+dropZone.style.borderRadius = "20px";
+dropZone.style.background = "rgba(255,255,255,.9)";
+dropZone.style.display = "none";
+dropZone.style.zIndex = "999999";
+
+document.body.appendChild(dropZone);
+
+window.addEventListener("dragenter", () => {
+
+    dropZone.style.display = "block";
+
+});
+
+window.addEventListener("dragleave", () => {
+
+    dropZone.style.display = "none";
+
+});
+
+window.addEventListener("drop", (e) => {
+
+    e.preventDefault();
+
+    dropZone.style.display = "none";
+
+    const file = e.dataTransfer.files[0];
+
+    if (!file) return;
+
+    const url = URL.createObjectURL(file);
+
+    popup.style.display = "flex";
+
+    initViewer();
+
+    loadModel(url);
+
+});
+
+
+// =====================================
+// WIREFRAME MODE
+// =====================================
+
+let wireframe = false;
+
+const wireBtn = document.createElement("button");
+
+wireBtn.innerHTML = "Wireframe";
+
+wireBtn.style.position = "absolute";
+wireBtn.style.left = "170px";
+wireBtn.style.top = "30px";
+
+popup.appendChild(wireBtn);
+
+wireBtn.onclick = () => {
+
+    wireframe = !wireframe;
+
+    if (!currentModel) return;
+
+    currentModel.traverse((obj) => {
+
+        if (obj.isMesh) {
+
+            obj.material.wireframe = wireframe;
+
+        }
+
+    });
+
+};
+
+
+// =====================================
+// BACKGROUND COLOR
+// =====================================
+
+const colors = [
+
+"#ffffff",
+"#F7F5F3",
+"#202020",
+"#76001D",
+"#dcdcdc"
+
+];
+
+let colorIndex = 0;
+
+const bgBtn = document.createElement("button");
+
+bgBtn.innerHTML = "Background";
+
+bgBtn.style.position = "absolute";
+bgBtn.style.left = "300px";
+bgBtn.style.top = "30px";
+
+popup.appendChild(bgBtn);
+
+bgBtn.onclick = () => {
+
+    colorIndex++;
+
+    if (colorIndex >= colors.length)
+
+        colorIndex = 0;
+
+    scene.background = new THREE.Color(
+
+        colors[colorIndex]
+
+    );
+
+};
+
+
+// =====================================
+// MODEL INFORMATION
+// =====================================
+
+function calculateTriangles(object){
+
+let triangles = 0;
+
+object.traverse(mesh=>{
+
+if(mesh.isMesh){
+
+triangles +=
+
+mesh.geometry.index ?
+
+mesh.geometry.index.count / 3 :
+
+mesh.geometry.attributes.position.count / 3;
+
+}
+
+});
+
+return Math.floor(triangles);
+
+}
+
+
+// =====================================
+// UPDATE INFO PANEL
+// =====================================
+
+function updateModelInfo(){
+
+if(!currentModel) return;
+
+const tri = calculateTriangles(currentModel);
+
+info.innerHTML += `
+
+<hr style="margin:15px 0">
+
+<p><b>Triangles :</b> ${tri}</p>
+
+<p><b>Status :</b> Ready</p>
+
+`;
+
+}
+
+
+// =====================================
+// UPDATE LOAD MODEL
+// =====================================
+
+const oldLoad = loadModel;
+
+loadModel = function(path){
+
+loader.load(path,(gltf)=>{
+
+if(currentModel){
+
+scene.remove(currentModel);
+
+}
+
+currentModel = gltf.scene;
+
+scene.add(currentModel);
+
+fitCameraToObject(currentModel);
+
+updateModelInfo();
+
+});
+
+};
+
+
+// =====================================
+// SAVE CAMERA
+// =====================================
+
+const cameraState = {
+
+position:new THREE.Vector3(),
+
+target:new THREE.Vector3()
+
+};
+
+function saveCamera(){
+
+cameraState.position.copy(camera.position);
+
+cameraState.target.copy(controls.target);
+
+}
+
+function restoreCamera(){
+
+camera.position.copy(cameraState.position);
+
+controls.target.copy(cameraState.target);
+
+controls.update();
+
+}
+
+
+// =====================================
+// SHORTCUT
+// =====================================
+
+window.addEventListener("keydown",(e)=>{
+
+if(e.key==="s"){
+
+saveCamera();
+
+}
+
+if(e.key==="r"){
+
+restoreCamera();
+
+}
+
+});
+
+
+// =====================================
+// THUMBNAIL
+// =====================================
+
+function createThumbnail(){
+
+const img = renderer.domElement.toDataURL();
+
+console.log("Thumbnail Generated");
+
+return img;
+
+}
+
+
+// =====================================
+// EXPORT IMAGE BUTTON
+// =====================================
+
+const exportBtn = document.createElement("button");
+
+exportBtn.innerHTML = "Export";
+
+exportBtn.style.position = "absolute";
+exportBtn.style.left = "430px";
+exportBtn.style.top = "30px";
+
+popup.appendChild(exportBtn);
+
+exportBtn.onclick = ()=>{
+
+const image = createThumbnail();
+
+const a = document.createElement("a");
+
+a.href = image;
+
+a.download = "thumbnail.png";
+
+a.click();
+
+};
+
+
+// =====================================
+// END PART
+// =====================================
+
+console.log("Advanced Viewer Loaded");
+// ======================================
+// GALLERY MANAGER
+// ======================================
+
+const galleryData = [
+
+{
+id:1,
+title:"UNIOM White",
+file:"models/topi1.glb",
+category:"Cap"
+},
+
+{
+id:2,
+title:"UNIOM Black",
+file:"models/topi2.glb",
+category:"Cap"
+},
+
+{
+id:3,
+title:"UNIOM Maroon",
+file:"models/topi3.glb",
+category:"Cap"
+},
+
+{
+id:4,
+title:"Prototype",
+file:"models/topi4.glb",
+category:"Prototype"
+}
+
+];
+
+
+// ======================================
+// SEARCH BAR
+// ======================================
+
+const search=document.createElement("input");
+
+search.type="text";
+
+search.placeholder="Cari model...";
+
+search.style.position="fixed";
+search.style.right="30px";
+search.style.top="95px";
+search.style.padding="12px 18px";
+search.style.borderRadius="15px";
+search.style.border="1px solid #ddd";
+search.style.zIndex="999";
+
+document.body.appendChild(search);
+
+search.addEventListener("input",()=>{
+
+const keyword=search.value.toLowerCase();
+
+document.querySelectorAll(".card").forEach(card=>{
+
+const title=card.innerText.toLowerCase();
+
+if(title.includes(keyword)){
+
+card.style.display="block";
+
+}else{
+
+card.style.display="none";
+
+}
+
+});
+
+});
+
+
+// ======================================
+// LOADING MANAGER
+// ======================================
+
+const manager=new THREE.LoadingManager();
+
+manager.onStart=()=>{
+
+progress.style.width="0%";
+
+};
+
+manager.onProgress=(url,loaded,total)=>{
+
+const value=(loaded/total)*100;
+
+progress.style.width=value+"%";
+
+};
+
+manager.onLoad=()=>{
+
+setTimeout(()=>{
+
+progress.style.width="0%";
+
+},400);
+
+};
+
+loader=new GLTFLoader(manager);
+
+
+// ======================================
+// PRESENTATION MODE
+// ======================================
+
+let presentation=false;
+
+const presentBtn=document.createElement("button");
+
+presentBtn.innerHTML="Presentation";
+
+presentBtn.style.position="absolute";
+presentBtn.style.left="540px";
+presentBtn.style.top="30px";
+
+popup.appendChild(presentBtn);
+
+presentBtn.onclick=()=>{
+
+presentation=!presentation;
+
+controls.autoRotate=presentation;
+
+if(presentation){
+
+controls.autoRotateSpeed=3;
+
+}else{
+
+controls.autoRotateSpeed=.5;
+
+}
+
+};
+
+
+// ======================================
+// MODEL SCALE
+// ======================================
+
+function normalizeScale(model){
+
+const box=new THREE.Box3().setFromObject(model);
+
+const size=box.getSize(new THREE.Vector3());
+
+const max=Math.max(size.x,size.y,size.z);
+
+const scale=2/max;
+
+model.scale.setScalar(scale);
+
+}
+
+const oldLoader=loadModel;
+
+loadModel=function(path){
+
+loader.load(path,(gltf)=>{
+
+if(currentModel){
+
+scene.remove(currentModel);
+
+}
+
+currentModel=gltf.scene;
+
+normalizeScale(currentModel);
+
+scene.add(currentModel);
+
+fitCameraToObject(currentModel);
+
+updateModelInfo();
+
+});
+
+};
+
+
+// ======================================
+// GRID HOTKEY
+// ======================================
+
+const grid=new THREE.GridHelper(
+
+10,
+20,
+0x888888,
+0xcccccc
+
+);
+
+grid.visible=false;
+
+scene.add(grid);
+
+window.addEventListener("keydown",(e)=>{
+
+if(e.key==="g"){
+
+grid.visible=!grid.visible;
+
+}
+
+});
+
+
+// ======================================
+// AXIS HELPER
+// ======================================
+
+const axis=new THREE.AxesHelper(2);
+
+axis.visible=false;
+
+scene.add(axis);
+
+window.addEventListener("keydown",(e)=>{
+
+if(e.key==="a"){
+
+axis.visible=!axis.visible;
+
+}
+
+});
+
+
+// ======================================
+// LIGHT CONTROL
+// ======================================
+
+window.addEventListener("keydown",(e)=>{
+
+if(e.key==="ArrowUp"){
+
+light.intensity+=0.2;
+
+}
+
+if(e.key==="ArrowDown"){
+
+light.intensity-=0.2;
+
+if(light.intensity<0)
+
+light.intensity=0;
+
+}
+
+});
+
+
+// ======================================
+// MODEL ROTATION
+// ======================================
+
+window.addEventListener("keydown",(e)=>{
+
+if(!currentModel)return;
+
+switch(e.key){
+
+case "1":
+
+currentModel.rotation.y=0;
+
+break;
+
+case "2":
+
+currentModel.rotation.y=Math.PI/2;
+
+break;
+
+case "3":
+
+currentModel.rotation.y=Math.PI;
+
+break;
+
+case "4":
+
+currentModel.rotation.y=Math.PI*1.5;
+
+break;
+
+}
+
+});
+
+
+// ======================================
+// PERFORMANCE
+// ======================================
+
+renderer.setPixelRatio(
+
+Math.min(
+
+window.devicePixelRatio,
+
+2
+
+)
+
+);
+
+
+// ======================================
+// READY
+// ======================================
+
+console.log("Gallery Manager Ready");
+// ======================================
+// CAMERA ANIMATION
+// ======================================
+
+function animateCamera(targetPos,targetLook){
+
+const startPos=camera.position.clone();
+const startLook=controls.target.clone();
+
+let t=0;
+
+function update(){
+
+t+=0.02;
+
+if(t>1)t=1;
+
+camera.position.lerpVectors(
+startPos,
+targetPos,
+t
+);
+
+controls.target.lerpVectors(
+startLook,
+targetLook,
+t
+);
+
+controls.update();
+
+if(t<1){
+
+requestAnimationFrame(update);
+
+}
+
+}
+
+update();
+
+}
+
+
+// ======================================
+// FRONT VIEW BUTTON
+// ======================================
+
+const frontBtn=document.createElement("button");
+
+frontBtn.innerHTML="Front";
+
+frontBtn.style.position="absolute";
+frontBtn.style.left="690px";
+frontBtn.style.top="30px";
+
+popup.appendChild(frontBtn);
+
+frontBtn.onclick=()=>{
+
+if(!currentModel)return;
+
+const center=new THREE.Box3()
+
+.setFromObject(currentModel)
+
+.getCenter(new THREE.Vector3());
+
+animateCamera(
+
+new THREE.Vector3(0,1.2,3),
+
+center
+
+);
+
+};
+
+
+// ======================================
+// TOP VIEW
+// ======================================
+
+const topBtn=document.createElement("button");
+
+topBtn.innerHTML="Top";
+
+topBtn.style.position="absolute";
+topBtn.style.left="770px";
+topBtn.style.top="30px";
+
+popup.appendChild(topBtn);
+
+topBtn.onclick=()=>{
+
+if(!currentModel)return;
+
+const center=new THREE.Box3()
+
+.setFromObject(currentModel)
+
+.getCenter(new THREE.Vector3());
+
+animateCamera(
+
+new THREE.Vector3(0,5,0),
+
+center
+
+);
+
+};
+
+
+// ======================================
+// RENDER QUALITY
+// ======================================
+
+const quality=document.createElement("select");
+
+quality.style.position="absolute";
+quality.style.left="840px";
+quality.style.top="30px";
+
+quality.innerHTML=`
+
+<option value="1">Low</option>
+
+<option value="1.5">Medium</option>
+
+<option value="2" selected>High</option>
+
+`;
+
+popup.appendChild(quality);
+
+quality.onchange=()=>{
+
+renderer.setPixelRatio(
+
+Number(quality.value)
+
+);
+
+};
+
+
+// ======================================
+// MODEL SIZE
+// ======================================
+
+function modelSize(){
+
+if(!currentModel)return;
+
+const box=new THREE.Box3()
+
+.setFromObject(currentModel);
+
+const size=box.getSize(new THREE.Vector3());
+
+console.log(
+
+"Size:",
+
+size.x,
+
+size.y,
+
+size.z
+
+);
+
+}
+
+
+// ======================================
+// HOTSPOT
+// ======================================
+
+const hotspot=document.createElement("div");
+
+hotspot.innerHTML="●";
+
+hotspot.style.position="absolute";
+hotspot.style.color="#7A0018";
+hotspot.style.fontSize="30px";
+hotspot.style.display="none";
+
+popup.appendChild(hotspot);
+
+function updateHotspot(){
+
+if(!currentModel)return;
+
+hotspot.style.left="50%";
+hotspot.style.top="45%";
+
+hotspot.style.display="block";
+
+}
+
+setInterval(updateHotspot,100);
+
+
+// ======================================
+// DARK MODE
+// ======================================
+
+const dark=document.createElement("button");
+
+dark.innerHTML="Dark";
+
+dark.style.position="absolute";
+dark.style.left="980px";
+dark.style.top="30px";
+
+popup.appendChild(dark);
+
+let darkMode=false;
+
+dark.onclick=()=>{
+
+darkMode=!darkMode;
+
+scene.background=new THREE.Color(
+
+darkMode?"#111111":"#f7f5f3"
+
+);
+
+};
+
+
+// ======================================
+// MODEL STATISTICS
+// ======================================
+
+function statistics(){
+
+if(!currentModel)return;
+
+let meshes=0;
+
+currentModel.traverse(obj=>{
+
+if(obj.isMesh){
+
+meshes++;
+
+}
+
+});
+
+console.log("Meshes :",meshes);
+
+}
+
+setTimeout(statistics,1500
+</script>
+
+</body>
+
+</html>
